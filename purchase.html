@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Purchase Management</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+<header class="topbar">
+  <a class="brand" href="index.html">
+    <span class="brand-mark">✚</span>
+    <span><strong>MediTrack</strong><small>INVENTORY SYSTEM</small></span>
+  </a>
+  <!-- <div class="topbar-right">
+    <span class="today">Mon, 2 Nov, 2026</span>
+    <span class="notification">♧<i></i></span>
+    <span class="avatar">AD</span>
+    <span class="admin-name"><strong>Admin User</strong><small>Administrator</small></span>
+  </div> -->
+</header>
+<nav class="main-nav" aria-label="Main navigation">
+  <a class="nav-item" href="index.html"><span class="nav-icon">▦</span><span>Home</span></a>
+  <a class="nav-item" href="user.html"><span class="nav-icon">♧</span><span>User Management</span></a>
+  <a class="nav-item" href="Medicine.html"><span class="nav-icon">💊</span><span>Medicine Management</span></a>
+  <a class="nav-item" href="supplier.html"><span class="nav-icon">▣</span><span>Supplier Management</span></a>
+  <a class="nav-item active" href="purchase.html"><span class="nav-icon">＋</span><span>Purchase Management</span></a>
+  <a class="nav-item" href="batches.html"><span class="nav-icon">⬡</span><span>Batch Management</span></a>
+  <a class="nav-item" href="inventory.html"><span class="nav-icon">▥</span><span>Inventory / Stock</span></a>
+  <a class="nav-item" href="issue.html"><span class="nav-icon">↗</span><span>Medicine Issue</span></a>
+  <a class="nav-item" href="return.html"><span class="nav-icon">↩</span><span>Medicine Return</span></a>
+  <a class="nav-item" href="transactions.html"><span class="nav-icon">⇄</span><span>Transactions</span></a>
+  <a class="nav-item" href="expiry.html"><span class="nav-icon">▣</span><span>Expiry Tracking</span></a>
+  <a class="nav-item" href="lowstock.html"><span class="nav-icon">⚠</span><span>Low Stock</span></a>
+  <a class="nav-item" href="reports.html"><span class="nav-icon">▤</span><span>Reports</span></a>
+  <a class="nav-item" href="register.html"><span class="nav-icon">♙</span><span>Registration</span></a>
+  <a class="nav-item" href="login.html"><span class="nav-icon">⇥</span><span>Login</span></a>
+</nav>
+<div class="breadcrumb"><a href="home.html">Workspace</a><b>›</b><strong>Purchase</strong></div>
+<main class="page-content">
+    <h2>Purchase Management</h2>
+    <form id="purchase">
+        <div class="zoro">
+            <label for="supplier">Supplier:</label>
+            <select id="supplier">
+                <option value="ABC Pharmacist">ABC Pharmacist</option>
+                <option value="XYZ Pharmacist">XYZ Pharmacist</option>
+            </select><br>
+        </div>
+
+        <div class="zoro">
+            <label for="purchacedate">Purchase Date:</label>
+            <input type="date" id="purchacedate" required><br>
+        </div>
+
+        <div class="zoro">
+            <label for="medicine">Medicine:</label>
+            <input type="text" id="medicine" required><br>
+        </div>
+
+        <div class="zoro">
+            <label for="batchnumber">Batch Number:</label>
+            <input type="text" id="batchnumber" required><br>
+        </div>
+
+        <div class="zoro">
+            <label for="manufacturer">Manufacturer:</label>
+            <input type="text" id="manufacturer" required><br>
+        </div>
+
+        <div class="zoro">
+            <label for="expirydate">Expiry Date:</label>
+            <input type="date" id="expirydate" required><br>
+        </div>
+
+        <div class="zoro">
+            <label for="quantity">Quantity:</label>
+            <input type="number" id="quantity" required><br>
+        </div>
+
+        <div class="zoro">
+            <label for="purchaseprice">Purchase Price:</label>
+            <input type="number" id="purchaseprice" required><br>
+        </div>
+
+        <div class="zoro">
+            <label for="sellingprice">Selling Price:</label>
+            <input type="number" id="sellingprice" required><br>
+        </div>
+
+        <div class="zoro">
+            <label for="remarks">Remarks:</label>
+            <input type="text" id="remarks"><br>
+        </div>
+
+        <button class="regBtn" type="submit">Add Purchase</button>
+    </form>
+
+    <table id="user_id">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Supplier</th>
+                <th>Medicine</th>
+                <th>Batch</th>
+                <th>Quantity</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody id="tableBody"></tbody>
+    </table>
+
+    <script>
+
+        const form = document.getElementById("purchase");
+        const tableBody = document.getElementById("tableBody");
+
+        let id = 1;
+
+        form.addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            const supplier = document.getElementById("supplier").value;
+            const medicine = document.getElementById("medicine").value;
+            const batch = document.getElementById("batchnumber").value;
+            const quantity = document.getElementById("quantity").value;
+            const date = document.getElementById("purchacedate").value;
+
+            const row = tableBody.insertRow();
+
+            row.insertCell(0).textContent = id++;
+            row.insertCell(1).textContent = supplier;
+            row.insertCell(2).textContent = medicine;
+            row.insertCell(3).textContent = batch;
+            row.insertCell(4).textContent = quantity;
+            row.insertCell(5).textContent = date;
+
+
+
+            form.reset();
+        });
+
+    </script>
+
+    
+</main>
+<footer>© 2026 MediTrack · Medicine Inventory System</footer>
+</body>
+
+</html>

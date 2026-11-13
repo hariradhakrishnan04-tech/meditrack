@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Medicine Form </title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+<header class="topbar">
+  <a class="brand" href="index.html">
+    <span class="brand-mark">✚</span>
+    <span><strong>MediTrack</strong><small>INVENTORY SYSTEM</small></span>
+  </a>
+  <!-- <div class="topbar-right">
+    <span class="today">Mon, 2 Nov, 2026</span>
+    <span class="notification">♧<i></i></span>
+    <span class="avatar">AD</span>
+    <span class="admin-name"><strong>Admin User</strong><small>Administrator</small></span>
+  </div> -->
+</header>
+<nav class="main-nav" aria-label="Main navigation">
+  <a class="nav-item " href="index.html"><span class="nav-icon">▦</span><span>Home</span></a>
+  <a class="nav-item" href="user.html"><span class="nav-icon">♧</span><span>User Management</span></a>
+  <a class="nav-item active" href="Medicine.html"><span class="nav-icon">💊</span><span>Medicine Management</span></a>
+  <a class="nav-item" href="supplier.html"><span class="nav-icon">▣</span><span>Supplier Management</span></a>
+  <a class="nav-item" href="purchase.html"><span class="nav-icon">＋</span><span>Purchase Management</span></a>
+  <a class="nav-item" href="batches.html"><span class="nav-icon">⬡</span><span>Batch Management</span></a>
+  <a class="nav-item" href="inventory.html"><span class="nav-icon">▥</span><span>Inventory / Stock</span></a>
+  <a class="nav-item" href="issue.html"><span class="nav-icon">↗</span><span>Medicine Issue</span></a>
+  <a class="nav-item" href="return.html"><span class="nav-icon">↩</span><span>Medicine Return</span></a>
+  <a class="nav-item" href="transactions.html"><span class="nav-icon">⇄</span><span>Transactions</span></a>
+  <a class="nav-item" href="expiry.html"><span class="nav-icon">▣</span><span>Expiry Tracking</span></a>
+  <a class="nav-item" href="lowstock.html"><span class="nav-icon">⚠</span><span>Low Stock</span></a>
+  <a class="nav-item" href="reports.html"><span class="nav-icon">▤</span><span>Reports</span></a>
+  <a class="nav-item" href="register.html"><span class="nav-icon">♙</span><span>Registration</span></a>
+  <a class="nav-item" href="login.html"><span class="nav-icon">⇥</span><span>Login</span></a>
+</nav>
+<div class="breadcrumb"><a href="home.html">Workspace</a><b>›</b><strong>Medicine</strong></div>
+<main class="page-content">
+    <h2>Medicine</h2>
+    <form id="medicine">
+        <div class="Abi">
+            <label for="medicineName">Medicine Name :</label>
+            <input type="text" id="medicineName" placeholder="medicine name" required><br>
+        </div>
+        <div class="Abi">
+            <label for="genericName">Generic Name :</label>
+            <input type="text" id="genericName" required><br>
+        </div>
+        <div class="Abi">
+            <label for="Category">Category :</label>
+            <input type="text" id="Category" required><br>
+        </div>
+        <div class="Abi">
+            <label for="Manufacturer">Manufacturer :</label>
+            <input type="text" id="Manufacturer" required><br>
+        </div>
+        <div class="Abi">
+            <label for="DosageForm">Dosage Form :</label>
+            <input type="text" id="DosageForm" required><br>
+        </div>
+        <div class="Abi">
+            <label for="Strength">Strength :</label>
+            <input type="text" id="Strength" required><br>
+        </div>
+        <div class="Abi">
+            <label for="PreorderLevel">Preorder Level :</label>
+            <input type="number" id="PreorderLevel" required><br>
+        </div>
+        <div class="Abi">
+            <label for="Description">Description :</label>
+            <textarea id="Description" placeholder="Enter the Description"></textarea><br>
+        </div>
+
+
+        <button class="regBtn" type="submit">Add Medicine </button>
+        <button class="regBtn" type="reset">Clear</button>
+
+    </form><br>
+    <div class="Abi">
+        <label for="Search">Search:</label>
+        <input type="text" id="Search" placeholder="Search medicine">
+
+        <label for="CategoryFilter">Category:</label>
+        <select id="CategoryFilter">
+            <option value="All">All</option>
+            <option value="Tablet">Tablet</option>
+            <option value="Syrup">Syrup</option>
+            <option value="Capsule">Capsule</option>
+            <option value="Injection">Injection</option>
+        </select>
+    </div>
+    <table id="user_id">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Medicine</th>
+                <th>Category</th>
+                <th>Strength</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="tableBody"></tbody>
+    </table><br>
+    
+    <script>
+
+        const form = document.getElementById("medicine");
+        const tabledetails = document.getElementById("tableBody");
+        let id = 1;
+        form.addEventListener("submit", function (event) {
+            event.preventDefault();
+            const medicine = document.getElementById("medicineName").value;
+            const category = document.getElementById("Category").value;
+            const strength = document.getElementById("Strength").value;
+
+            const row = tabledetails.insertRow();
+            row.insertCell(0).textContent = id++;
+            row.insertCell(1).textContent = medicine;
+            row.insertCell(2).textContent = category;
+            row.insertCell(3).textContent = strength;
+            row.insertCell(4).innerHTML = `<button class ="edit"> Edit</button> <button class ="delete">Delete</button>`;
+
+            form.reset();
+
+
+        });
+
+        const search = document.getElementById("Search");
+        const categoryFilter = document.getElementById("CategoryFilter");
+        const tableBody = document.getElementById("tableBody");
+
+        function filterMedicines() {
+            const searchValue = search.value.toLowerCase();
+            const categoryValue = categoryFilter.value.toLowerCase();
+
+            const rows = tableBody.querySelectorAll("tr");
+
+            rows.forEach(function (row) {
+                const medicine = row.cells[1].textContent.toLowerCase();
+                const category = row.cells[2].textContent.toLowerCase();
+
+                const matchesSearch = medicine.includes(searchValue);
+                const matchesCategory =
+                    categoryValue === "all" || category === categoryValue;
+
+                if (matchesSearch && matchesCategory) {
+                    row.style.display = "";
+                } else {
+                    row.style.display = "none";
+                }
+            });
+        }
+
+        search.addEventListener("input", filterMedicines);
+        categoryFilter.addEventListener("change", filterMedicines);
+
+        tableBody.addEventListener('click', function (event) {
+            let button = event.target;
+            let row = button.closest('tr');
+
+            if (!row) return;
+
+            if (button.classList.contains('delete')) {
+                row.remove();
+            }
+
+            if (button.classList.contains('edit')) {
+
+                let medicine = row.cells[1].textContent;
+                let category = row.cells[2].textContent;
+                let strength = row.cells[3].textContent;
+
+
+                document.getElementById('medicineName').value = medicine;
+                document.getElementById('Category').value = category;
+                document.getElementById('Strength').value = strength;
+
+                row.remove();
+            }
+        });
+
+    </script>
+
+</main>
+<footer>© 2026 MediTrack · Medicine Inventory System</footer>
+</body>
+
+</html>
